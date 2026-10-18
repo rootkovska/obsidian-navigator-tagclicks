@@ -71,12 +71,15 @@ describe('click interception', () => {
         expect(calls).toEqual([]);
     });
 
-    it('handles modifier clicks too when pass-through is off', async () => {
+    it('handles Cmd/Ctrl clicks when pass-through is off, but still never Shift/Alt', async () => {
         const { calls } = await setup({}, { modifierPassThrough: false });
         mount(readingView);
         expect(click('a.tag', { metaKey: true }).defaultPrevented).toBe(true);
+        expect(click('a.tag', { ctrlKey: true }).defaultPrevented).toBe(true);
+        expect(click('a.tag', { shiftKey: true }).defaultPrevented).toBe(false);
+        expect(click('a.tag', { altKey: true }).defaultPrevented).toBe(false);
         await flush();
-        expect(calls).toContain('navigateToTag:project/alpha');
+        expect(calls.filter(c => c.startsWith('navigateToTag'))).toHaveLength(2);
     });
 
     it('does nothing when Notebook Navigator is not enabled', async () => {

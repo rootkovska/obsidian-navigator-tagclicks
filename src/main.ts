@@ -3,10 +3,15 @@ import { getNavigatorApi, openCoreTagSearch, revealTagInNavigator, type RevealRe
 import { DEFAULT_SETTINGS, NNTagClickSettingTab, type NNTagClickSettings } from './settings';
 import { findClickedTag, tagAtPosition, type TagHit } from './tags';
 
-/** Plain left click only (optionally allowing modifier clicks through to Obsidian). */
+/**
+ * Should we take this click? Left button only.
+ * Shift and Alt always pass through: in the editor they extend the selection / add a cursor.
+ * Cmd/Ctrl pass through (to Obsidian's core Search) unless the user turned that off.
+ */
 export function isPlainLeftClick(evt: MouseEvent, modifierPassThrough: boolean): boolean {
     if (evt.button !== 0) return false;
-    if (modifierPassThrough && (evt.metaKey || evt.ctrlKey || evt.altKey || evt.shiftKey)) return false;
+    if (evt.shiftKey || evt.altKey) return false;
+    if (modifierPassThrough && (evt.metaKey || evt.ctrlKey)) return false;
     return true;
 }
 

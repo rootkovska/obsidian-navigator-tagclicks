@@ -7,7 +7,7 @@ export interface NNTagClickSettings {
     rendered: boolean;
     livePreview: boolean;
     properties: boolean;
-    /** Clicks with Cmd/Ctrl/Alt/Shift held fall through to Obsidian's default (core Search). */
+    /** Cmd/Ctrl-click falls through to Obsidian's default (core Search). Shift/Alt always do. */
     modifierPassThrough: boolean;
     /** What to do when Notebook Navigator can't find the tag (e.g. it is hidden in NN). */
     fallback: FallbackMode;
@@ -48,8 +48,8 @@ export class NNTagClickSettingTab extends PluginSettingTab {
         toggle('Live Preview tags', 'Tags in the Live Preview editor. Source mode is never affected.', 'livePreview');
         toggle('Properties tags', 'Tag pills in the Properties panel.', 'properties');
         toggle(
-            'Modifier key opens Search',
-            "Hold Cmd, Ctrl, Alt or Shift while clicking to get Obsidian's default behaviour (core Search) instead.",
+            'Cmd/Ctrl-click opens Search',
+            "Hold Cmd (macOS) or Ctrl while clicking a tag to get Obsidian's core Search instead. Shift- and Alt-clicks are always left to Obsidian.",
             'modifierPassThrough'
         );
 
