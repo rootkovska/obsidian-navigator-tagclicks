@@ -1,0 +1,9 @@
+{
+  "id": "nn-tag-click",
+  "name": "NN Tag Click",
+  "version": "0.1.0",
+  "minAppVersion": "1.7.2",
+  "description": "Clicking a tag in a note reveals it in Notebook Navigator's tag tree instead of opening Search.",
+  "author": "Joanna Rutkowska",
+  "isDesktopOnly": false
+}
